@@ -1,6 +1,10 @@
 Begin Logging
 
-Participant Start Time: 24.320
-Trial Start Time: 247.016
+Participant Start Time: 0.000
+Trial Start Time: 3.159
 Trial Number: 1
--------------------------
+Begin Logging
+Participant Start Time: 3.179
+Trial Start Time: 3.179
+Trial Number: 1
+----------------------------------------

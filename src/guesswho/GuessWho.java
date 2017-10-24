@@ -14,11 +14,25 @@ public class GuessWho
   static String startInfo;
   static final boolean PARTIAL_INFO = false;
   static double startTime;
+  static int mode = 0;
 
 
   public static void main(String[] args)
   {
     JFrame gameFrame = new JFrame("Guess Who");
+    // rules dialog
+    Object[] options = {"Hard mode", "Normal mode"};
+    mode = JOptionPane.showOptionDialog(null,
+            "The computer chose a character--guess which one.\n\n"
+            + "To narrow your choices, select features to the left and click ASK.\n"
+            + "Right-click cards that don't match to turn them over.\n"
+            + "You can ask about multiple features, but you'll get a YES only if all features match.\n"
+            + "Click CARD INFO to see a text list of a card's features.\n"
+            + "Wrong guesses cost 10 points. Bonus points for clever strategies that minimize narrowing!", "Guess Who?",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, 
+            null, 
+            options, 
+            options[1]);
 
     // Set up game window
     gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,19 +57,8 @@ public class GuessWho
       {
         pause(40);
         background.repaint();
-
         if (!done)
         {
-          // rules dialog
-          JOptionPane.showMessageDialog(null,
-              "                                          Guess Who?    \n\n"
-                  + "The computer chose a character--guess which one.\n\n"
-                  + "To narrow your choices, select features to the left and click ASK.\n"
-                  + "Right-click cards that don't match to turn them over.\n"
-                  + "You can ask about multiple features, but you'll get a YES only if all features match.\n"
-                  + "Click CARD INFO to see a text list of a card's features.\n"
-                  + "Wrong guesses cost 10 points. Bonus points for clever strategies that minimize narrowing!");
-
           // begin logging trials
           Background.outFile.println("Begin Logging");
           startTime = Background.currentTime();

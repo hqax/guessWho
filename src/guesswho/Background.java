@@ -39,6 +39,7 @@ class Background extends JLayeredPane
   private static JLabel totalPayoutLabel;
   private static JLabel trialPayoutLabel;
   private static JLabel answer;
+  public static boolean hardMode = false;
 
   private final int CARDS_PER_ROW = 6;
   private final int CARDS_PER_COLUMN = 3;
@@ -47,7 +48,7 @@ class Background extends JLayeredPane
   private final int NUM_OF_OPTIONS_BUTTONS_ACROSS = 2;
   private static final int NUMBER_OF_STARTING_GUESSES = 6;
 
-  private ArrayList<Feature> featuresSet;
+  ArrayList<Feature> featuresSet;
   static ArrayList<Card> deck;
   static ArrayList<JList> jListList;
   public static ArrayList<String> boyNames;
@@ -95,10 +96,12 @@ class Background extends JLayeredPane
 
   public static void deductTrialPoints(int points)
   {
-    if ((guesses -= points) >= 0)
+    guesses -= points;
+    if (guesses >= 0)
     {
       trialPayoutLabel.setText(String.format("%d Guesses", guesses));
-    } else
+    }
+    else
     {
       guesses = 0;
       trialPayoutLabel.setText(String.format("%d Current", guesses));
@@ -141,21 +144,21 @@ class Background extends JLayeredPane
 
   public void buildFeatures()
   {
-    featuresSet.add(new Feature("Skin Color", new String[] { "light skin", "dark skin" }));
-    featuresSet.add(
-        new Feature("Eye Color", new String[] { "blue eyes", "black eyes", "brown eyes", "green eyes", "grey eyes" }));
-    featuresSet.add(new Feature("Sex", new String[] { "boy", "girl" }));
-    featuresSet.add(new Feature("Mouth", new String[] { "smiling", "frowning" }));
-    featuresSet.add(new Feature("Lips", new String[] { "big lips", "thin lips" }));
+    featuresSet.add(new Feature("Headwear", new String[] { "hat", "no hat" }));
     featuresSet.add(new Feature("Hair",
         new String[] { "blonde hair", "black hair", "brown hair", "red hair", "grey hair", "bald" }));
-    featuresSet.add(new Feature("Beard", new String[] { "beard", "no beard" }));
-    featuresSet.add(new Feature("Mustache", new String[] { "mustache", "no mustache" }));
+    featuresSet.add(new Feature("Eyewear", new String[] { "glasses", "no glasses" }));
+    featuresSet.add(
+        new Feature("Eye Color", new String[] { "blue eyes", "black eyes", "brown eyes", "green eyes", "grey eyes" }));
     featuresSet.add(new Feature("Nose", new String[] { "big nose", "short nose", "thin nose" }));
+    featuresSet.add(new Feature("Lips", new String[] { "big lips", "thin lips" }));
+    featuresSet.add(new Feature("Mustache", new String[] { "mustache", "no mustache" }));
+    featuresSet.add(new Feature("Mouth", new String[] { "smiling", "frowning" }));
+    featuresSet.add(new Feature("Beard", new String[] { "beard", "no beard" }));
     featuresSet.add(new Feature("Shirt", new String[] { "blue shirt", "black shirt", "red shirt", "green shirt",
         "orange shirt", "yellow shirt", "purple shirt" }));
-    featuresSet.add(new Feature("Headwear", new String[] { "hat", "no hat" }));
-    featuresSet.add(new Feature("Eyewear", new String[] { "glasses", "no glasses" }));
+    featuresSet.add(new Feature("Skin Color", new String[] { "light skin", "dark skin" }));
+    featuresSet.add(new Feature("Sex", new String[] { "boy", "girl" }));
   }
 
 
@@ -209,7 +212,8 @@ class Background extends JLayeredPane
     try
     {
       fw = new FileWriter(LOG_FOLDER + "/log" + getTrialNum() + ".txt");
-    } catch (Exception e)
+    }
+    catch (Exception e)
     {
       System.out.println(e.getMessage());
     }
@@ -249,11 +253,13 @@ class Background extends JLayeredPane
     {
       answer.setForeground(new Color(0, 100, 0));
       answer.setText("Yes");
-    } else if (i == 0)
+    }
+    else if (i == 0)
     {
       answer.setForeground(new Color(100, 0, 0));
       answer.setText("No");
-    } else
+    }
+    else
     {
       answer.setText("");
     }
@@ -387,7 +393,10 @@ class Background extends JLayeredPane
     answer.setBorder(new LineBorder(Color.BLACK, BORDER_SIZE));
     featuresBar.setLayout(new GridLayout(4, 2));
     featuresBar.setBorder(new LineBorder(Color.black, BORDER_SIZE));
-    for (int i = 0; i < featuresSet.size(); i++)
+    int featureNumbers = featuresSet.size();
+    if (GuessWho.mode == 0)
+      featureNumbers = featureNumbers - 2;
+    for (int i = 0; i < featureNumbers; i++)
     {
       JPanel j = new JPanel();
       j.setLayout(new GridLayout(1, 1));
