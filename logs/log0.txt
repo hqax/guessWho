@@ -1,15 +1,5 @@
 Begin Logging
-Participant Start Time: 1.870
-Trial Start Time: 1.870
+Participant Start Time: 0.525
+Trial Start Time: 0.525
 Trial Number: 0
 ----------------------------------------
-Event: Mouse Clicked
-Time: 2.752
-Cursor Location: (1081, 532)
-Object Clicked: nancy
-Button Used: 3
-Current Trial: 0
-Current Trial Score: 6
-Current Total Score: 0
-Event Type: Single Click
--------------------------
